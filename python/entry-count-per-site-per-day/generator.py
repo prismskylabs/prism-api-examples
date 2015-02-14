@@ -5,6 +5,8 @@
 # you may want to consider using requests
 # http://docs.python-requests.org/en/latest/
 import argparse
+import codecs
+import csv
 import datetime
 import json
 import os
@@ -108,21 +110,26 @@ def validate_dates(start_date, stop_date):
         raise Exception('Stop date must not be over 120 past start date')
 
 
-def print_header(start_date, stop_date):
+def compute_dates(start_date, stop_date):
+    dates = []
     cur_date = start_date
     while cur_date <= stop_date:
-        sys.stdout.write(',%s' % cur_date)
+        dates.append(cur_date)
         cur_date += datetime.timedelta(days=1)
-    sys.stdout.write("\n")
+    return dates
 
 
-def print_row(site_display_name, site_counts, start_date, stop_date):
-    sys.stdout.write(site_display_name)
-    cur_date = start_date
-    while cur_date <= stop_date:
-        sys.stdout.write(',%s' % site_counts[str(cur_date)])
-        cur_date += datetime.timedelta(days=1)
-    sys.stdout.write("\n")
+def print_header(writer, dates):
+    cells = [''] + dates
+    writer.writerow(cells)
+
+
+def print_row(writer, site_display_name, site_counts, dates):
+    # handle unicode characters in site names
+    cells = [codecs.encode(site_display_name, 'utf-8')]
+    for cur_date in dates:
+        cells.append(site_counts[str(cur_date)])
+    writer.writerow(cells)
 
 
 def main():
@@ -143,6 +150,7 @@ def main():
     start_date = parse_date(args.start_date)
     stop_date = parse_date(args.stop_date)
     validate_dates(start_date, stop_date)
+    dates = compute_dates(start_date, stop_date)
 
     # collect the date from the api
     sites = get_sites()
@@ -152,10 +160,12 @@ def main():
         counts = get_counts(site, start_date, stop_date)
         counts_by_site[key] = counts
 
+
     # dump out the response
-    print_header(start_date, stop_date)
+    writer = csv.writer(sys.stdout)
+    print_header(writer, dates)
     for site_display_name, site_counts in counts_by_site.iteritems():
-        print_row(site_display_name, site_counts, start_date, stop_date)
+        print_row(writer, site_display_name, site_counts, dates)
 
 
 if __name__ == '__main__':
