@@ -25,8 +25,17 @@ def get_sites():
     accounts_url = api_root['accounts_url']
     accounts = get_resource(accounts_url)
 
+    # list of all sites in any of the accounts this api key can access
+    # that have an 'entry' tripwire type defined
     all_sites = []
     for account in accounts:
+
+        # check to see if the account has an 'entry' tripwire type
+        tripwire_types_url = account['tripwire_types_url']
+        tripwire_types = get_resource(tripwire_types_url)
+        if not any([tt['name'] == 'entry' for tt in tripwire_types]):
+            continue
+
         sites_url = account['sites_url']
         sites = get_resource(sites_url)
         # attatch the account name to the site object

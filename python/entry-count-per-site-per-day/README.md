@@ -10,12 +10,12 @@ your sites per day, over a given date range.
 
 ## Environment Variables
 
- * If the environemnt variable `PRISM_API_KEY` is set, the script will use
-   this api key.
+ * If the environment variable `PRISM_API_KEY` is set, the script will use
+   this API key.
 
 ## Output
 
- * a csv of the results if dumped to stdout
+ * a csv of the results is dumped to stdout
 
 ## Example
 
