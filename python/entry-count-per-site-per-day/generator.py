@@ -157,6 +157,8 @@ def main():
     counts_by_site = {}
     for site in sites:
         key = '%s - %s' % (site['account_name'], site['name'])
+        if site['external_id']:
+            key += ' - %s' % site['external_id']
         counts = get_counts(site, start_date, stop_date)
         counts_by_site[key] = counts
 

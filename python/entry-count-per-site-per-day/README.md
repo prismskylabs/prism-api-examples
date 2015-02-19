@@ -24,8 +24,8 @@ $ export PRISM_API_KEY=':your-api-key-here'
 $ ./generator.py 2015-02-12 2015-02-15 > counts.csv
 $ cat counts.csv
 ,2015-02-12,2015-02-13,2015-02-14,2015-02-15
-Prism Test Account - London Store (#42),343,454,565,676
-Prism Test Account - Buenos Aires (#43),234,345,456,567
+Prism Test Account - London Store - 42,343,454,565,676
+Prism Test Account - Buenos Aires - 43,234,345,456,567
 ```
 
 For more options, please run `./generatory.py --help`.
