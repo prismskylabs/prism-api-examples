@@ -20,7 +20,7 @@ your sites per day, over a given date range.
 ## Example
 
 ```shell
-$ export PRISM_API_KEY=':your-api-key-here'
+$ export PRISM_API_KEY='your-api-key-here'
 $ ./generator.py 2015-02-12 2015-02-15 > counts.csv
 $ cat counts.csv
 ,2015-02-12,2015-02-13,2015-02-14,2015-02-15
