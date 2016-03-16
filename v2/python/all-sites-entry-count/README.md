@@ -1,4 +1,4 @@
-# Entry count per Day per Site
+# Entry count for all sites for a particular hour
 
 This example integration will write a json object to stdout of containing
 entry counts within business hours over a particular hour for all sites
