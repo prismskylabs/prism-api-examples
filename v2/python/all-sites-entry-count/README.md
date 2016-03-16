@@ -8,7 +8,7 @@ within a specified account.
 
 ```
 $ export PRISM_API_KEY='your-api-key-here'
-$ ./retrieve-hour-counts.py --hour 2016-03-15T18 -a 471
+$ ./retrieve-counts.py --hour 2016-03-15T18 -a 471
 
 For the hour starting at 2016-03-15T18:00:00, here are the entry counts
 within business hours for all sites in account #471. Note that a
@@ -27,5 +27,5 @@ hours for that site.
 ]
 ```
 
-For more information and options, please run `./retrieve-hour-counts.py --help`
+For more information and options, please run `./retrieve-counts.py --help`
 or consult the Prism API v2 documentation.
