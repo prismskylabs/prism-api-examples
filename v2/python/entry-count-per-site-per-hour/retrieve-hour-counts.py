@@ -90,8 +90,10 @@ def main():
         return datetime.datetime.strptime(dt_str, '%Y-%m-%dT%H')
 
     parser = argparse.ArgumentParser(
-        description=("Dump to stdout a JSON string of entry counts for each"
-                     "for the hour that most recently finished."),
+        description=("This example integration will write a json object to "
+                     "stdout of containing entry counts within business "
+                     "hours over a particular hour for all sites within "
+                     "a specified account."),
     )
     parser.add_argument(
         '-a', '--account', type=int, required=True,

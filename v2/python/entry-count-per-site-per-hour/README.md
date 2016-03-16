@@ -1,6 +1,6 @@
 # Entry count per Day per Site
 
-This example integration will dump a json object to stdout of containing
+This example integration will write a json object to stdout of containing
 entry counts within business hours over a particular hour for all sites
 within a specified account.
 
