@@ -4,29 +4,6 @@ This example integration will write a json object to stdout of containing
 entry counts within business hours over a particular hour for all sites
 within a specified account.
 
-## Required Parameters
-
- * -a ACCOUNT, --account ACCOUNT
-   ID of Prism Account to query api for.
-
-## Optional Parameters
-
- * --hour HOUR
-   UTC datetime with hour resolution in ISO 86001 format.
-   Example: '--hour 2016-03-01T09'. If not provided, this
-   will default to the beginning of the last hour that
-   has most recently fully completed.
-
-## Environment Variables
-
- * If the environment variable `PRISM_API_KEY` is set, the script will use
-   this API key.
-
-## Output
-
- * Some descriptive text and a json object containing the counts
-   will be written to stdout.
-
 ## Example
 
 ```
@@ -50,4 +27,5 @@ hours for that site.
 ]
 ```
 
-For more options, please run `./retrieve-hour-counts.py --help`.
+For more information and options, please run `./retrieve-hour-counts.py --help`
+or consult the Prism API v2 documentation.
