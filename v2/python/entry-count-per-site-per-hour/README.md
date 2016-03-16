@@ -29,7 +29,7 @@ within a specified account.
 
 ## Example
 
-```shell
+```
 $ export PRISM_API_KEY='your-api-key-here'
 $ ./retrieve-hour-counts.py --hour 2016-03-15T18 -a 471
 
