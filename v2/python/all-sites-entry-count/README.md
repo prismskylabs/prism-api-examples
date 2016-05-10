@@ -8,12 +8,12 @@ within a specified account.
 
 ```
 $ export PRISM_API_KEY='your-api-key-here'
-$ ./retrieve-counts.py --hour 2016-03-15T18 -a 471
+$ ./retrieve-counts.py --hour 2016-03-15T18 -a 471 -e UK
 
 For the hour starting at 2016-03-15T18:00:00, here are the entry counts
-within business hours for all sites in account #471. Note that a
-value of 'null' indicates the hour is completely outside of business
-hours for that site.
+within business hours for sites with external_id 'UK' in account #471.
+Note that a value of 'null' indicates the hour is completely outside
+of business hours for that site.
 
 [
     {

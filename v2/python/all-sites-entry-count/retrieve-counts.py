@@ -58,9 +58,12 @@ def get_entry_zone_id(account_id):
     return result[0]['id']
 
 
-def get_site_ids(account_id):
+def get_site_ids(account_id, external_id):
     "Get a list of all the site ids for that account"
     url = API_ROOT + '/accounts/{}/sites/'.format(account_id)
+    if external_id is not None:
+        query_params = [('external_id', external_id)]
+        url += '?' + urllib.urlencode(query_params)
     result = query_api(url)
     site_ids = [site['id'] for site in result]
     return site_ids
@@ -101,10 +104,14 @@ def main():
     )
     parser.add_argument(
         '--hour', type=str_to_dt, required=False,
-        help=("UTC datetime with hour resolution in ISO 86001 format. "
+        help=("UTC datetime with hour resolution in ISO 8601 format. "
               "Example: '--hour 2016-03-01T09'. "
               "If not provided, this will default to the beginning of "
               "the last hour that has most recently fully completed."),
+    )
+    parser.add_argument(
+        '-e', '--external-id', type=str, required=False,
+        help="Only query sites with this external ID.",
     )
 
     args = parser.parse_args()
@@ -118,13 +125,20 @@ def main():
 
     test_api_connection(args.account)
     zone_id = get_entry_zone_id(args.account)
-    site_ids = get_site_ids(args.account)
+    site_ids = get_site_ids(args.account, args.external_id)
     hour_counts = get_hour_counts(args.account, zone_id, site_ids, hour)
 
-    print ("\nFor the hour starting at {}, here are the entry counts\n"
-           "within business hours for all sites in account #{}. Note that a\n"
-           "value of 'null' indicates the hour is completely outside of business\n"
-           "hours for that site.\n").format(hour.isoformat(), args.account)
+    msg_str = ("\nFor the hour starting at {hour}, here are the entry counts\n"
+               "within business hours for {which_sites} in account #{act_id}.\n"
+               "Note that a value of 'null' indicates the hour is completely outside\n"
+               "of business hours for that site.\n")
+    msg_kwargs = {
+        'hour': hour.isoformat(),
+        'which_sites': ('all sites' if args.external_id is None
+                        else "sites with external_id '{}'".format(args.external_id)),
+        'act_id': args.account,
+    }
+    print msg_str.format(**msg_kwargs)
     print json.dumps(hour_counts, sort_keys=True, indent=4,
                      separators=(',', ': '))
 
