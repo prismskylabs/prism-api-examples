@@ -58,11 +58,15 @@ def get_entry_zone_id(account_id):
     return result[0]['id']
 
 
-def get_site_ids(account_id, external_id):
+def get_site_ids(account_id, external_id, label):
     "Get a list of all the site ids for that account"
     url = API_ROOT + '/accounts/{}/sites/'.format(account_id)
+    query_params = []
     if external_id is not None:
-        query_params = [('external_id', external_id)]
+        query_params += [('external_id', external_id)]
+    if label is not None:
+        query_params += [('label', label)]
+    if query_params:
         url += '?' + urllib.urlencode(query_params)
     result = query_api(url)
     site_ids = [site['id'] for site in result]
@@ -113,6 +117,10 @@ def main():
         '-e', '--external-id', type=str, required=False,
         help="Only query sites with this external ID.",
     )
+    parser.add_argument(
+        '-l', '--label', type=str, required=False,
+        help="Only query sites with this label.",
+    )
 
     args = parser.parse_args()
     if args.hour:
@@ -125,17 +133,26 @@ def main():
 
     test_api_connection(args.account)
     zone_id = get_entry_zone_id(args.account)
-    site_ids = get_site_ids(args.account, args.external_id)
+    site_ids = get_site_ids(args.account, args.external_id, args.label)
     hour_counts = get_hour_counts(args.account, zone_id, site_ids, hour)
 
     msg_str = ("\nFor the hour starting at {hour}, here are the entry counts\n"
                "within business hours for {which_sites} in account #{act_id}.\n"
                "Note that a value of 'null' indicates the hour is completely outside\n"
                "of business hours for that site.\n")
+
+    if args.external_id is None and args.label is None:
+        which_sites = 'all sites'
+    elif args.external_id is not None and args.label is not None:
+        which_sites = "sites with external_id '{}' and label '{}'".format(args.external_id, args.label)
+    elif args.external_id:
+        which_sites = "sites with external_id '{}'".format(args.external_id)
+    elif args.label:
+        which_sites = "sites with label '{}'".format(args.label)
+
     msg_kwargs = {
         'hour': hour.isoformat(),
-        'which_sites': ('all sites' if args.external_id is None
-                        else "sites with external_id '{}'".format(args.external_id)),
+        'which_sites': which_sites,
         'act_id': args.account,
     }
     print msg_str.format(**msg_kwargs)
