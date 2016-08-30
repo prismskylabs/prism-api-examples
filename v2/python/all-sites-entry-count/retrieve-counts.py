@@ -26,7 +26,7 @@ def query_api(url):
     try:
         response = urllib2.urlopen(request)
     except urllib2.HTTPError as err:
-        if err.getcode()/10*10 == 400:
+        if err.getcode()/100*100 == 400:
             content = json.loads(err.read())
             error_msgs = ', '.join(content['error_messages'])
             raise Exception('API responded with 4XX error: %s' % error_msgs)
