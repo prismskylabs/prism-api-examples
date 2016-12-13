@@ -61,7 +61,7 @@ def get_entry_zone_id(account_id):
 def get_site_ids(account_id, external_id, label):
     "Get a list of all the site ids for that account"
     url = API_ROOT + '/accounts/{}/sites/'.format(account_id)
-    query_params = []
+    query_params = [('abbreviated', True)]
     if external_id is not None:
         query_params += [('external_id', external_id)]
     if label is not None:
