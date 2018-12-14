@@ -41,7 +41,7 @@ class RetrieveRefreshedReports:
         try:
             response = urllib2.urlopen(request)
         except urllib2.HTTPError as err:
-            if err.getcode()/10*10 == 400:
+            if err.getcode()/100*100 == 400:
                 err_data = err.read()
                 try:
                     content = json.loads(err_data)
