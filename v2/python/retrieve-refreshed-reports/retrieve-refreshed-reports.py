@@ -103,9 +103,9 @@ class RetrieveRefreshedReports:
         result = self.query_api(url)
         return result
     
-    def filename_by(self, str_kind, kind_val):
+    def filename_by(self, start_date, str_kind, kind_val):
         filename = ( 'report__rc=%d__start=%s__by-%s=%s.json' % 
-            (int(self.cfg_id), self.change_time_str, str_kind, kind_val ))
+            (int(self.cfg_id), start_date, str_kind, kind_val ))
         filename = os.path.join(self.dest_dir, filename)
         return filename
     
@@ -114,7 +114,7 @@ class RetrieveRefreshedReports:
         print('  Downloading by period report with period={0},'.format(self.by_period_val), 
               'start={0}'.format(report.start_date))
         by_period_data = self.query_api_raw(url)
-        filename = self.filename_by('period', self.by_period_val)
+        filename = self.filename_by(report.start_date, 'period', self.by_period_val)
         print('   into file: ', filename, ' ...', end='')
         
         with open(filename, 'w') as fp:
@@ -127,7 +127,7 @@ class RetrieveRefreshedReports:
         print('  Downloading by region report with region={0},'.format(self.by_region_val), 
               'start={0}'.format(report.start_date))
         by_region_data = self.query_api_raw(url)
-        filename = self.filename_by('region', self.by_region_val)
+        filename = self.filename_by(report.start_date, 'region', self.by_region_val)
         print('   into file: ', filename, ' ...', end='')
         
         with open(filename, 'w') as fp:
