@@ -99,12 +99,11 @@ Script allows to do the following:
  
  - Download only by-region or only by-period reports:
  
+ $ ./retrieve-refreshed-reports.py -k <API_key> -a <account_id> -c <report_configuration_id> -o 1.0 -R "http://api.prism.com/v2" -r site -t by-region
  $ ./retrieve-refreshed-reports.py -k <API_key> -a <account_id> -c <report_configuration_id> -o 1.0 -R "http://api.prism.com/v2" -p hour -t by-period
- $ ./retrieve-refreshed-reports.py -k <API_key> -a <account_id> -c <report_configuration_id> -o 1.0 -R "http://api.prism.com/v2" -p site -t by-region
  
  - User can change region type in by-region
  - User can change period type in by-period
-
 
 # Example of retrieving report by date
 
