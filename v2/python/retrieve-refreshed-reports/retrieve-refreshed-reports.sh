@@ -4,8 +4,7 @@
 # execute retrieve-refreshed-reports.py and will save 
 # reports into designated destimation directory
 
-SCRIPT=$(readlink -f "$0")    # Absolute path to this script
-SCRIPTS_DIR=$(dirname "$SCRIPT")
+SCRIPTS_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 
 API_ROOT="http://api.prism.com/v2"  #  "http://api.test/v2"
 AUTH_KEY=<key>  # API key
