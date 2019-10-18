@@ -202,8 +202,8 @@ def main():
               "Default value is 1.0 hour. It assumes this script runs every hour."),
     )
     parser.add_argument(
-        '-R', '--api-root', type=str, required=False, default='https://api.prism.com/v2',
-        help="API root for flexible testing. Default value: 'https://api.prism.com/v2'",
+        '-R', '--api-root', type=str, required=False, default='https://api.prismsl.net/v2',
+        help="API root for flexible testing. Default value: 'https://api.prismsl.net/v2'",
     )
     parser.add_argument(
         '-p', '--by-period-type', type=str, required=False, default='hour',

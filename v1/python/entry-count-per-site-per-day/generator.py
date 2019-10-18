@@ -14,7 +14,7 @@ import sys
 import urllib2
 
 
-API_ROOT = 'https://api.prism.com/v1/'
+API_ROOT = 'https://api.prismsl.net/v1/'
 API_KEY = os.environ.get('PRISM_API_KEY', None)
 TRIPWIRE_TYPE = 'entry'
 
