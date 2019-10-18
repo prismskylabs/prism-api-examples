@@ -95,12 +95,12 @@ file name format and read data from those files.
 Script allows to do the following:
  - Only list refreshed reports without downloading them. An example for past 24 hours:
  
- $ ./retrieve-refreshed-reports.py -k <API_key> -a <account_id> -c <report_configuration_id> -o 24.0 -R "http://api.prism.com/v2" -p site -l LIST_ONLY
+ $ ./retrieve-refreshed-reports.py -k <API_key> -a <account_id> -c <report_configuration_id> -o 24.0 -R "http://api.prismsl.net/v2" -p site -l LIST_ONLY
  
  - Download only by-region or only by-period reports:
  
- $ ./retrieve-refreshed-reports.py -k <API_key> -a <account_id> -c <report_configuration_id> -o 1.0 -R "http://api.prism.com/v2" -r site -t by-region
- $ ./retrieve-refreshed-reports.py -k <API_key> -a <account_id> -c <report_configuration_id> -o 1.0 -R "http://api.prism.com/v2" -p hour -t by-period
+ $ ./retrieve-refreshed-reports.py -k <API_key> -a <account_id> -c <report_configuration_id> -o 1.0 -R "http://api.prismsl.net/v2" -r site -t by-region
+ $ ./retrieve-refreshed-reports.py -k <API_key> -a <account_id> -c <report_configuration_id> -o 1.0 -R "http://api.prismsl.net/v2" -p hour -t by-period
  
  - User can change region type in by-region
  - User can change period type in by-period
