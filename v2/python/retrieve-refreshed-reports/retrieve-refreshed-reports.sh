@@ -6,7 +6,7 @@
 
 SCRIPTS_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 
-API_ROOT="https://api.prism.com/v2"  #  "http://api.test/v2"
+API_ROOT="https://api.prismsl.net/v2"  #  "http://api.test/v2"
 AUTH_KEY=<key>  # API key
 ACCOUNT=7       # account_id
 REPORT_CFG=2    # report_configuration_id
