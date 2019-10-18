@@ -12,7 +12,7 @@ import urllib
 import urllib2
 
 
-API_ROOT = 'https://api.prism.com/v2'
+API_ROOT = 'https://api.prismsl.net/v2'
 API_KEY = os.environ.get('PRISM_API_KEY', None)
 
 if not API_KEY:
