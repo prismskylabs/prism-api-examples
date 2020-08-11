@@ -49,10 +49,12 @@ Prism App. From URL, you shall be able to derive two important numbers needed
 for retrieving reports:
  - account_id
  - report_configuration_id
+
 When you access your report in Prism App, your URL will look like
 https://app.prism.com/<account_id>/reports/<report_configuration_id>/<date>
 where account_id and report_configuration_id are integer numbers.
-Record these numbers as you need them further.
+Record these numbers as you need them further to pass to script as parameter
+or to form your URL to download report.
 
 2. Reach Prism Support to obtain API key for accessing reports via 
 Prism REST API. You may already have such key if you already used 
@@ -91,7 +93,14 @@ and report configuration. The script outputs exact file names
 under which reports were saved. Real integration can parse
 file name format and read data from those files.
 
-7. There are more customizations that are possible if you need that.
+7. Files saved by the script are in json format by default.
+It is possible to save as csv format too. Pass
+
+    --format csv
+
+option in order to save all files in csv file format.
+
+8. There are more customizations that are possible if you need that.
 Script allows to do the following:
  - Only list refreshed reports without downloading them. An example for past 24 hours:
  

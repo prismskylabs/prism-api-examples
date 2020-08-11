@@ -9,12 +9,14 @@ SCRIPTS_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 API_ROOT="https://api.prismsl.net/v2"  #  "http://api.test/v2"
 AUTH_KEY=<key>  # API key
 ACCOUNT=7       # account_id
-REPORT_CFG=2    # report_configuration_id
+REPORT_CFG=123    # report_configuration_id
 HOURS_BACK="1.0"
 BY_PERIOD=hour
 BY_REGION=site
 DEST_DIR=./
 SAVED_RPRT_TYPES=all
+FORMAT=json # can be csv
+
 
 $SCRIPTS_DIR/retrieve-refreshed-reports.py \
     --api-root $API_ROOT \
@@ -25,6 +27,7 @@ $SCRIPTS_DIR/retrieve-refreshed-reports.py \
     --saved-report-types $SAVED_RPRT_TYPES \
     --by-period-type $BY_PERIOD \
     --by-region-type $BY_REGION \
-    --destination-dir $DEST_DIR
+    --destination-dir $DEST_DIR \
+    --format $FORMAT
 
 

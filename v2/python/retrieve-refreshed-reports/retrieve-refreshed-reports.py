@@ -29,6 +29,7 @@ class RetrieveRefreshedReports:
         self.dest_dir = args.destination_dir
         self.list_only = args.list_only
         self.saved_report_types = args.saved_report_types
+        self.format = args.format
         
         change_since = datetime.datetime.utcnow() - datetime.timedelta(seconds=int(args.offset*3600))
         self.change_time_str = change_since.strftime('%Y-%m-%dT%H:%M')
@@ -104,13 +105,13 @@ class RetrieveRefreshedReports:
         return result
     
     def filename_by(self, start_date, str_kind, kind_val):
-        filename = ( 'report__rc=%d__start=%s__by-%s=%s.json' % 
-            (int(self.cfg_id), start_date, str_kind, kind_val ))
+        filename = ( ('report__rc=%d__start=%s__by-%s=%s.'  %
+            (int(self.cfg_id), start_date, str_kind, kind_val )) + self.format )
         filename = os.path.join(self.dest_dir, filename)
         return filename
     
-    def save_by_period_json(self, report):
-        url = report.by_period_data_url + '?period=' + self.by_period_val
+    def save_by_period_file(self, report):
+        url = report.by_period_data_url + '?period=' + self.by_period_val + '&format_type=' + self.format
         print('  Downloading by period report with period={0},'.format(self.by_period_val), 
               'start={0}'.format(report.start_date))
         by_period_data = self.query_api_raw(url)
@@ -122,8 +123,8 @@ class RetrieveRefreshedReports:
         print(' Done')
             
         #print ("by_period_data data = " + str(by_period_data))
-    def save_by_region_json(self, report):
-        url = report.by_region_data_url + '?region=' + self.by_region_val
+    def save_by_region_file(self, report):
+        url = report.by_region_data_url + '?region=' + self.by_region_val + '&format_type=' + self.format
         print('  Downloading by region report with region={0},'.format(self.by_region_val), 
               'start={0}'.format(report.start_date))
         by_region_data = self.query_api_raw(url)
@@ -139,9 +140,9 @@ class RetrieveRefreshedReports:
         for report in reports:
             report = ObjFromDict(report)
             if self.saved_report_types == 'by-period' or self.saved_report_types == 'all':
-                self.save_by_period_json(report)
+                self.save_by_period_file(report)
             if self.saved_report_types == 'by-region' or self.saved_report_types == 'all':
-                self.save_by_region_json(report)
+                self.save_by_region_file(report)
         print('Download of refreshed reports complete')
     
     def run(self):
@@ -221,6 +222,11 @@ def main():
         '-d', '--destination-dir', type=str, required=False, default='./',
         help="Destination directory where to write files with reports in json format. "
         " Defaults to current directory",
+    )
+    parser.add_argument(
+        '-f', '--format', type=str, required=False, default='json',
+        choices=['json', 'csv'],
+        help="Format of saved file output. json or csv. json is the default",
     )
     
     parser.add_argument(
