@@ -3,11 +3,11 @@
 This example will show how to retrieve reports that 
 have changed since a certain point in time.
 Also, this example integration will show how to retrieve counts by date
-for particular report configuration in the Prism App.
+for particular report configuration in the Ignite Prism App.
 
 ## Retrieving refreshed reports
 
-Recently Prism App started to update daily reports every hour.
+The Ignite Prism App updates daily reports every hour.
 Every hour the daily report is re-calculated to account for new counts
 that arrived for that hour.
 This example shows how to download reports that were refreshed
@@ -21,7 +21,7 @@ retrieve-refreshed-reports.py
 retrieve-refreshed-reports.sh
 
 retrieve-refreshed-reports.py  file is a python script implementing all logic
-of interaction with Prism REST API to obtain refreshed reports.
+of interaction with Ignite Prism REST API to obtain refreshed reports.
 
 retrieve-refreshed-reports.sh file is an example of invocation script which
 demonstrates parametrization of invoking retrieve-refreshed-reports.py 
@@ -33,7 +33,7 @@ Also, a user needs to have access to Unix shell.
 Bash is a good option, but the script shall work with any posix shell.
 Also, it shall be possible to run a python script from Windows, but 
 retrieve-refreshed-reports.sh script then needs to be re-written
-to conform to windows shell.
+to conform to Windows shell.
 
 
 retrieve-refreshed-reports.py has more options than shown in the example invocation.
@@ -44,19 +44,21 @@ in order to see all the parameters.
 In order to run a script for retrieving refreshed reports you need to 
 fulfill the following steps:
 
-1. In your Prism Account create a report. Note URL by which you access the report in 
-Prism App. From URL, you shall be able to derive two important numbers needed 
+1. In your Ignite Prism Account create a report. Note URL by which you access the report in 
+the Ignite Prism App. From URL, you shall be able to derive two important numbers needed 
 for retrieving reports:
  - account_id
  - report_configuration_id
-When you access your report in Prism App, your URL will look like
-https://app.prism.com/<account_id>/reports/<report_configuration_id>/<date>
+
+When you access your report in the Ignite Prism App, your URL will look like
+https://app.igniteprism.com/<account_id>/reports/<report_configuration_id>/<date>
 where account_id and report_configuration_id are integer numbers.
-Record these numbers as you need them further.
+Record these numbers as you need them further to pass to script as parameter
+or to form your URL to download report.
 
 2. Reach Prism Support to obtain API key for accessing reports via 
-Prism REST API. You may already have such key if you already used 
-Prism REST API. In such a case, just use it. You do not need to obtain
+Ignite Prism REST API. You may already have such key if you already used 
+Ignite Prism REST API. In such a case, just use it. You do not need to obtain
 another key.
 
 3.  Once you have account_id, report_configuration_id and API key,
@@ -91,16 +93,23 @@ and report configuration. The script outputs exact file names
 under which reports were saved. Real integration can parse
 file name format and read data from those files.
 
-7. There are more customizations that are possible if you need that.
+7. Files saved by the script are in json format by default.
+It is possible to save as csv format too. Pass
+
+    --format csv
+
+option in order to save all files in csv file format.
+
+8. There are more customizations that are possible if you need that.
 Script allows to do the following:
  - Only list refreshed reports without downloading them. An example for past 24 hours:
  
- $ ./retrieve-refreshed-reports.py -k <API_key> -a <account_id> -c <report_configuration_id> -o 24.0 -R "http://api.prismsl.net/v2" -p site -l LIST_ONLY
+ $ ./retrieve-refreshed-reports.py -k <API_key> -a <account_id> -c <report_configuration_id> -o 24.0 -R "https://api.prismsl.net/v2" -p site -l LIST_ONLY
  
  - Download only by-region or only by-period reports:
  
- $ ./retrieve-refreshed-reports.py -k <API_key> -a <account_id> -c <report_configuration_id> -o 1.0 -R "http://api.prismsl.net/v2" -r site -t by-region
- $ ./retrieve-refreshed-reports.py -k <API_key> -a <account_id> -c <report_configuration_id> -o 1.0 -R "http://api.prismsl.net/v2" -p hour -t by-period
+ $ ./retrieve-refreshed-reports.py -k <API_key> -a <account_id> -c <report_configuration_id> -o 1.0 -R "https://api.prismsl.net/v2" -r site -t by-region
+ $ ./retrieve-refreshed-reports.py -k <API_key> -a <account_id> -c <report_configuration_id> -o 1.0 -R "https://api.prismsl.net/v2" -p hour -t by-period
  
  - User can change region type in by-region
  - User can change period type in by-period
@@ -122,4 +131,4 @@ and you shall be able to retrieve a report for the date
 indicated in that script.
 
 For more information, consult the Prism API v2 documentation.
-If you have any questions, please, contact Prism Support at support@prism.com.
+If you have any questions, please, contact Ignite Prism Support at support@igniteprism.com.
