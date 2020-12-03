@@ -7,7 +7,7 @@ for particular report configuration in the Ignite Prism App.
 
 ## Retrieving refreshed reports
 
-Recently Prism App started to update daily reports every hour.
+The Ignite Prism App updates daily reports every hour.
 Every hour the daily report is re-calculated to account for new counts
 that arrived for that hour.
 This example shows how to download reports that were refreshed
@@ -45,12 +45,12 @@ In order to run a script for retrieving refreshed reports you need to
 fulfill the following steps:
 
 1. In your Ignite Prism Account create a report. Note URL by which you access the report in 
-Prism App. From URL, you shall be able to derive two important numbers needed 
+the Ignite Prism App. From URL, you shall be able to derive two important numbers needed 
 for retrieving reports:
  - account_id
  - report_configuration_id
 
-When you access your report in Prism App, your URL will look like
+When you access your report in the Ignite Prism App, your URL will look like
 https://app.igniteprism.com/<account_id>/reports/<report_configuration_id>/<date>
 where account_id and report_configuration_id are integer numbers.
 Record these numbers as you need them further to pass to script as parameter
